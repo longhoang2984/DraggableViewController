@@ -1,7 +1,7 @@
 # DraggableViewController
 Draggable View Controller like Facebook Video
 Like Facebook app
-DraggableFloatingViewController allows you to play videos on a floating mini window at the bottom of your screen from sites like YouTube, Vimeo & Facebook or custom video , yes you have to prepare your video view for that.
+DraggableViewController allows you to play videos on a floating mini window at the bottom of your screen from sites like YouTube, Vimeo & Facebook or custom video , yes you have to prepare your video view for that.
 
 The controller extend from https://github.com/entotsu/DraggableFloatingViewController
 
