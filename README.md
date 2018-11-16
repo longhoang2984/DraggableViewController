@@ -1,7 +1,13 @@
 # DraggableViewController
-Draggable View Controller like Facebook Video
-Like Facebook app
-DraggableFloatingViewController allows you to play videos on a floating mini window at the bottom of your screen from sites like YouTube, Vimeo & Facebook or custom video , yes you have to prepare your video view for that.
+
+[![Version](https://img.shields.io/cocoapods/v/DraggableViewController.svg?style=flat)](https://cocoapods.org/pods/DraggableViewController)
+[![License](https://img.shields.io/cocoapods/l/DraggableViewController.svg?style=flat)](https://cocoapods.org/pods/DraggableViewController)
+[![Platform](https://img.shields.io/cocoapods/p/DraggableViewController.svg?style=flat)](https://cocoapods.org/pods/DraggableViewController)
+
+## Example
+
+# DraggableViewController
+DraggableViewController like Facebook Video and Youtube app, DraggableViewController allows you to play videos on a floating mini window at the bottom of your screen from sites like YouTube, Vimeo & Facebook or custom video , yes you have to prepare your video view for that.
 
 The controller extend from https://github.com/entotsu/DraggableFloatingViewController
 
@@ -10,7 +16,7 @@ The view will animate the view just like Youtube mobile app, while tapping on vi
 
 Screenshot
 ------------
- ![Demo](https://media.giphy.com/media/MRHV79IVTgFtj6CAX9/200w_d.gif)
+![Demo](https://media.giphy.com/media/MRHV79IVTgFtj6CAX9/200w_d.gif)
 
 
 
@@ -24,13 +30,13 @@ Screenshot
 ```swift
 override func viewDidLoad() {
 
-    self.setupViewsWithVideoView(yourMoivePlayer.view, //UIView
-        videoViewHeight: yourPlayerHeight, //CGFloat
-        minimizeButton: yourButton //UIButton
-    )
+self.setupViewsWithVideoView(yourMoivePlayer.view, //UIView
+videoViewHeight: yourPlayerHeight, //CGFloat
+minimizeButton: yourButton //UIButton
+)
 
-    // add your view to bodyView
-    self.bodyView.addSubview(yourView)
+// add your view to bodyView
+self.bodyView.addSubview(yourView)
 }
 ```
 
@@ -40,10 +46,10 @@ override func viewDidLoad() {
 
 ```swift
 func showSecondController() {
-    removeDraggableFloatingViewController()
-    self.videoViewController = VideoDetailViewController()
-    self.videoViewController.delegate = self
-    self.videoViewController.showVideoViewControllerOnParentVC(self)
+removeDraggableFloatingViewController()
+self.videoViewController = VideoDetailViewController()
+self.videoViewController.delegate = self
+self.videoViewController.showVideoViewControllerOnParentVC(self)
 }
 ```
 
@@ -52,10 +58,10 @@ func showSecondController() {
 
 ```swift
 func removeDraggableFloatingViewController() {
-    if self.videoViewController != nil {
-        self.videoViewController.removeAllViews()
-        self.videoViewController = nil
-    }
+if self.videoViewController != nil {
+self.videoViewController.removeAllViews()
+self.videoViewController = nil
+}
 }
 ```
 
@@ -79,10 +85,10 @@ http://stackoverflow.com/questions/18059703/cannot-hide-status-bar-in-ios7
 # please override if you want
 ```swift
 override func didExpand() {
-    showVideoControl()
+showVideoControl()
 }
 override func didMinimize() {
-    hideVideoControl()
+hideVideoControl()
 }
 ```
 
@@ -93,41 +99,41 @@ override func didMinimize() {
 ### Minimam subclass
 
 ```swift
-class VideoDetailViewController: DraggableFloatingViewController {
+class VideoDetailViewController: DraggableViewController {
 
-    var moviePlayer: MPMoviePlayerController!
+var moviePlayer: MPMoviePlayerController!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+override func viewDidLoad() {
+super.viewDidLoad()
 
-        // prepare your video player
-        moviePlayer = MPMoviePlayerController()
+// prepare your video player
+moviePlayer = MPMoviePlayerController()
 
-        // prepare your closing button
-        let foldBtn = UIButton()
-        foldBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-        foldBtn.setImage(UIImage(named: "DownArrow"), forState: UIControlState.Normal)
+// prepare your closing button
+let foldBtn = UIButton()
+foldBtn.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+foldBtn.setImage(UIImage(named: "DownArrow"), forState: UIControlState.Normal)
 
-        // please call this in "viewDidLoad"
-        self.setupViewsWithVideoView(moviePlayer.view,
-            videoViewHeight: 160,
-            foldButton: foldBtn
-        );
+// please call this in "viewDidLoad"
+self.setupViewsWithVideoView(moviePlayer.view,
+videoViewHeight: 160,
+foldButton: foldBtn
+);
 
-        // you can add sub views on bodyView
-        let testView = UILabel()
-        testView.frame = CGRect(x: 20, y: 20, width: 100, height: 40)
-        testView.text = "test view"
-        self.bodyView.addSubview(testView)
-    }
+// you can add sub views on bodyView
+let testView = UILabel()
+testView.frame = CGRect(x: 20, y: 20, width: 100, height: 40)
+testView.text = "test view"
+self.bodyView.addSubview(testView)
+}
 
-    // please override if you want
-    override func didExpand() {
-        showVideoControl()
-    }
-    override func didMinimize() {
-        hideVideoControl()
-    }
+// please override if you want
+override func didExpand() {
+showVideoControl()
+}
+override func didMinimize() {
+hideVideoControl()
+}
 }
 ```
 
@@ -135,39 +141,48 @@ class VideoDetailViewController: DraggableFloatingViewController {
 ### Minimam parent view controller
 
 ```swift
-class FirstViewController: UIViewController , DraggableFloatingViewControllerDelegate {
+class FirstViewController: UIViewController , DraggableViewControllerDelegate {
 
-    var videoViewController: VideoDetailViewController!
+var videoViewController: VideoDetailViewController!
 
-    @IBAction func onTapButton(sender: AnyObject) {
-        self.showSecondController()
-    }
+@IBAction func onTapButton(sender: AnyObject) {
+self.showSecondController()
+}
 
-    override func viewWillDisappear(animated: Bool) {
-        // when go to fullscreen, this is also called
-        if !self.videoViewController.isFullScreen() {
-            removeDraggableFloatingViewController()
-        }
-    }
+override func viewWillDisappear(animated: Bool) {
+// when go to fullscreen, this is also called
+if !self.videoViewController.isFullScreen() {
+removeDraggableFloatingViewController()
+}
+}
 
-    func showSecondController() {
-        removeDraggableFloatingViewController()
-        self.videoViewController = VideoDetailViewController()
-        self.videoViewController.delegate = self
-        self.videoViewController.showVideoViewControllerOnParentVC(self)
-    }
+func showSecondController() {
+removeDraggableFloatingViewController()
+self.videoViewController = VideoDetailViewController()
+self.videoViewController.delegate = self
+self.videoViewController.showVideoViewControllerOnParentVC(self)
+}
 
-    // DraggableFloatingViewControllerDelegate
-    func removeDraggableFloatingViewController() {
-        if self.videoViewController != nil {
-            self.videoViewController.removeAllViews()
-            self.videoViewController = nil
-        }
-    }
+// DraggableFloatingViewControllerDelegate
+func removeDraggableFloatingViewController() {
+if self.videoViewController != nil {
+self.videoViewController.removeAllViews()
+self.videoViewController = nil
+}
+}
 }
 
 
 ```
 -->
 
+
+
+## Author
+
+Long Hoàng, longhoang.2984@gmail.com
+
+## License
+
+DraggableViewController is available under the MIT license. See the LICENSE file for more info.
 
